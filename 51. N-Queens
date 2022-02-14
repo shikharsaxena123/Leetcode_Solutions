@@ -1,0 +1,47 @@
+class Solution {
+public:
+
+vector<vector<string>> solveNQueens(int n) {
+    vector<pair<int,int>>s(n+1,{0,0});
+    solve(n,s,1);
+    vector<vector<int>>w;
+    for(int i=0;i<v.size();i++){
+        int flag=0;
+        for(int j=0;j+1<v[i].size();j++){
+            for(int k=j+1;k<v[i].size();k++){
+                if(abs(v[i][k]-v[i][j])==k-j){
+                    flag=1;
+                }
+            }    
+        }
+        if(!flag){
+            w.push_back(v[i]);
+        }
+    }
+    vector<vector<string>>ans(w.size(),vector<string>(n,string(n,'.')));
+    for(int i=0;i<ans.size();i++){
+        for(int j=0;j<ans[i].size();j++){
+            ans[i][j][w[i][j]-1]='Q';
+        }
+    }
+    return ans;
+}
+vector<vector<int>>v;
+void solve(int n,vector<pair<int,int>>&s,int count){
+    if(count==n+1){
+        vector<int>a(n);
+        for(int i=1;i<=n;i++){
+            a[s[i].second-1]=i;
+        }
+        v.push_back(a);
+        return;
+    }
+    for(int i=1;i<=n;i++){
+        if(s[i].first!=1){
+            s[i]={1,count};
+            solve(n,s,count+1);
+            s[i]={0,0};
+        }
+    }
+}
+};
